@@ -1,0 +1,1 @@
+export type genericAndNull<T> = T | T[] | null

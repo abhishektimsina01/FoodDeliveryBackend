@@ -1,9 +1,10 @@
 // exception for custom errors for proper error management and not the general form
 
+import { genericAndNull } from "../types/types"
+
 export class DatabaseException extends Error {
     statusCode : number
     name : string
-
     constructor(message : string, statusCode : number){
         super(message)
         this.name = "DatabaseException"
@@ -11,11 +12,10 @@ export class DatabaseException extends Error {
     }
 }
 
-export class APIError extends Error {
+export class APIError<T> extends Error {
     statusCode : number
-    details : string | null
-
-    constructor(message : string, statusCode : number, details : string | null){
+    details : genericAndNull<T>
+    constructor(message : string, statusCode : number, details : genericAndNull<T>){
         super(message)
         this.name = "APIError"
         this.statusCode = statusCode

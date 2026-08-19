@@ -10,12 +10,9 @@ import { limiter } from "../config/rate.limiter";
 
 export const serverMiddleware = (app: Application) => {
     app.use(cookieParser());
-
     app.use(express.json());
-
     app.use(express.urlencoded({ extended: true }));
-
     app.use(morgan("dev"));
-
     app.use(limiter);
+    console.log("Server middleware registered✅")
 };

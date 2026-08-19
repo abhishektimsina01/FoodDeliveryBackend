@@ -1,8 +1,9 @@
 import { Response } from "express";
+import { genericAndNull } from "../types/types";
 
-export const SendErrorResponse = (res : Response,message : string, statusCode : number, details : Object | null | string): Response<any, Record<string, any>> => {    
+export const SendErrorResponse = <T>(res : Response, message : string, statusCode : number, details : genericAndNull<T>) => {    
     return res.json({
-        success : true,
+        success : false,
         statusCode : statusCode,
         message : message,
         error : {
@@ -12,7 +13,7 @@ export const SendErrorResponse = (res : Response,message : string, statusCode : 
     })
 }
 
-export const SendAPIResponse= <T>(res : Response, statusCode : number, message : string, data : T | T[]): Response<any, Record<string, any>> => {
+export const SendAPIResponse= <T>(res : Response, statusCode : number, message : string, data : genericAndNull<T>) => {
     return res.json({
         success : true,
         statusCode : statusCode,
@@ -20,4 +21,3 @@ export const SendAPIResponse= <T>(res : Response, statusCode : number, message :
         data : data
     })
 }
-
