@@ -1,1 +1,1 @@
-{"version":"7.0.2","root":["./src/server.ts"],"packageJsons":["./package.json"]}
+{"root":["./src/index.ts","./src/server.ts","./src/database/connect.ts","./src/utils/get.env.utils.ts"],"version":"5.9.3"}

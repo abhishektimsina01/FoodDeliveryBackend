@@ -1,3 +1,5 @@
-(() => {
-    console.log("hello world")
+import { appConfiguration } from "./index"
+
+(async() => {
+    await appConfiguration()
 })()
