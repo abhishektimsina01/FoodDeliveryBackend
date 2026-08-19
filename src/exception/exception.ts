@@ -13,10 +13,12 @@ export class DatabaseException extends Error {
 
 export class APIError extends Error {
     statusCode : number
+    details : string | null
 
-    constructor(message : string, statusCode : number){
+    constructor(message : string, statusCode : number, details : string | null){
         super(message)
         this.name = "APIError"
         this.statusCode = statusCode
+        this.details = details
     }
 }
