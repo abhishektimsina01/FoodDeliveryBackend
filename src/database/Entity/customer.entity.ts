@@ -31,13 +31,14 @@ export class Customer {
     @Column({type : "varchar"})
     email : string
 
-    @OneToOne(() => Address, (address) => address.entity)
+    @OneToOne(() => Address)
+    @JoinColumn()
     address : Address
 
-    @CreateDateColumn()
+    @CreateDateColumn({type : "timestamp without time zone"})
     created_at : Date
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({type : "timestamp without time zone"})
     updated_at : Date
 
 }

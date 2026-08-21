@@ -9,10 +9,12 @@ import {
     Unique,
     ManyToMany,
     Or,
+    OneToMany,
 } from "typeorm"
 import { ITEM_TYPE } from "../../enums/enums"
 import { Resturant } from "./resturant.entity"
 import { Order } from "./order.entity"
+import { OrderItem } from "./ManyToMany/order_item.entity"
 
 @Entity({
     name : "Menu"
@@ -34,5 +36,8 @@ export class Menu {
     @ManyToOne(()=> Resturant, (resturant) => resturant.items, {onDelete : "CASCADE"})
     @JoinColumn()
     resturant : Resturant
-    
+
+    @OneToMany(() => OrderItem, (order_item) => order_item.item)
+    orders : OrderItem[]
+
 }

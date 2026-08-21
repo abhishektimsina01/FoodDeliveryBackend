@@ -1,17 +1,20 @@
 import {
-
     Entity,
     Column,
     PrimaryGeneratedColumn,
     ManyToOne,
     JoinColumn,
-    ManyToMany,
-    JoinTable
+    OneToMany,
+    CreateDateColumn,
+    UpdateDateColumn,
+    OneToOne
 
 } from "typeorm"
 import { RESTURANT_ORDER_STATUS } from "../../enums/enums"
 import { Resturant } from "./resturant.entity"
-import { Menu } from "./menu.entity"
+import { OrderItem } from "./ManyToMany/order_item.entity"
+import { Delivery } from "./delivery.entity"
+import { Transaction } from "./transaction.entity"
 
 @Entity({
     name : "Order"
@@ -28,18 +31,29 @@ export class Order {
     @JoinColumn()
     resturant : Resturant
 
-    @ManyToMany(()=> Menu, (menu) => menu.orders, {onDelete : "CASCADE"})
-    @JoinTable({
-        name : "order_item",
-        joinColumn : {
-            name : "order_id",
-            referencedColumnName : "order_id"
-        },
-        inverseJoinColumn : {
-            name : "item_id",
-            referencedColumnName : "item_name"
-        }
-    })
-    items : Menu[]
+    @OneToMany(() => OrderItem, (order_item) => order_item.order)
+    order_item : OrderItem[]
 
+    @OneToOne(() => Delivery, (delivery) => delivery.order, {nullable : true})
+    @JoinColumn()
+    delivery : Delivery
+
+    @Column({type : "bigint", scale : 2})
+    cost_order : number
+    
+    @Column({ type : "bigint", scale : 2})
+    delivery_price : number
+
+    @OneToOne(() => Transaction, (trans) => trans.order, {nullable : true})
+    @JoinColumn()
+    transaction : Transaction
+    
+    @CreateDateColumn({type : "timestamp without time zone"})
+    created_at : Date
+
+    @UpdateDateColumn({type : "timestamp without time zone"})
+    updated_at : Date
+
+    @Column({ type : "timestamp without time zone"})
+    deadline : Date
 }

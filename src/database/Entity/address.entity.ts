@@ -7,6 +7,7 @@ import {
     Unique,
 } from "typeorm"
 import { Customer } from "./customer.entity"
+import { DeliveryPerson } from "./delivery_person.entity"
 
 @Entity({
     name : "Addresses"
@@ -31,9 +32,5 @@ export class Address{
 
     @Column({ type : "bigint", precision : 10, nullable : false, unsigned : true})
     phone_number1 : number
-
-    @OneToOne(() => Customer, (customer) => customer.address, {onDelete : "CASCADE"})
-    @JoinColumn()
-    entity : Customer
 
 }

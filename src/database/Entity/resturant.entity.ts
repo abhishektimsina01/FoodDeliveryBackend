@@ -47,10 +47,10 @@ export class Resturant{
     @OneToMany( () => Order, (order) => order.resturant)
     orders : Order[]
 
-    @CreateDateColumn()
+    @CreateDateColumn({type : "timestamp without time zone"})
     created_at : Date
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({type : "timestamp without time zone"})
     updated_at : Date
 
 }
