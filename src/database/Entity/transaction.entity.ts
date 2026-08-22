@@ -20,4 +20,6 @@ export class Transaction {
     @OneToOne(() => Order, (order) => order.transaction)
     order: Order
 
+    // left till the endpoints for this are made.
+
 }

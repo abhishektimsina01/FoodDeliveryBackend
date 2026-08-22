@@ -10,7 +10,6 @@ import {
 } from "typeorm"
 import { Address } from "./address.entity"
 import { Delivery } from "./delivery.entity"
-import { JoinAttribute } from "typeorm/query-builder/JoinAttribute.js"
 
 @Entity({
     name : "delivery"
