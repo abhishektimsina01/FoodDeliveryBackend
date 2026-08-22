@@ -12,7 +12,7 @@ import {
 } from "typeorm"
 import { Address } from "./address.entity"
 import { Admin } from "./admin.entity"
-import { RESTURANT_STATUS } from "../../enums/enums"
+import { RESTURANT_IS_APPROVED, RESTURANT_STATUS } from "../../enums/enums"
 import { Menu } from "./menu.entity"
 import { Order } from "./order.entity"
 
@@ -30,6 +30,9 @@ export class Resturant{
 
     @Column({type : "varchar"})
     owner_name : string
+
+    @Column({type : "enum", enum : RESTURANT_IS_APPROVED, default : RESTURANT_IS_APPROVED.RESTURANT_PENDING})
+    approval_status : RESTURANT_IS_APPROVED
 
     @OneToOne(()=> Address, {onDelete : "CASCADE"})
     @JoinColumn()
