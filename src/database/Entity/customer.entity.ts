@@ -31,7 +31,7 @@ export class Customer {
     @Column({type : "varchar"})
     email : string
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, {onDelete : "CASCADE"})
     @JoinColumn()
     address : Address
 

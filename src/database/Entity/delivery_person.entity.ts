@@ -22,7 +22,7 @@ export class DeliveryPerson{
     @Column({type : "bigint"})
     name : string
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, {onDelete : "CASCADE"})
     @JoinColumn()
     address : Address
 

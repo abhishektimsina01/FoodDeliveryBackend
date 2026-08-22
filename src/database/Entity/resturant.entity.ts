@@ -31,7 +31,8 @@ export class Resturant{
     @Column({type : "varchar"})
     owner_name : string
 
-    @OneToOne(()=> Address, (address) => address.entity)
+    @OneToOne(()=> Address, {onDelete : "CASCADE"})
+    @JoinColumn()
     address : Address
 
     @Column({ type : "enum", enum : [RESTURANT_STATUS.RESTURANT_OPEN, RESTURANT_STATUS.RESTURANT_OPEN], default : RESTURANT_STATUS.RESTURANT_CLOSE})
