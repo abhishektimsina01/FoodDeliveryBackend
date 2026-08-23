@@ -9,9 +9,7 @@ import {
 } from "typeorm"
 import { Order } from "./order.entity"
 
-@Entity({
-    name : "Transaction"
-})
+@Entity()
 export class Transaction {
 
     @PrimaryGeneratedColumn({type : "bigint"})

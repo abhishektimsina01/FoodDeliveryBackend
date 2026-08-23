@@ -16,9 +16,7 @@ import { OrderItem } from "./ManyToMany/order_item.entity"
 import { Delivery } from "./delivery.entity"
 import { Transaction } from "./transaction.entity"
 
-@Entity({
-    name : "Order"
-})
+@Entity()
 export class Order {
 
     @PrimaryGeneratedColumn({type : "bigint"})
@@ -48,12 +46,12 @@ export class Order {
     @JoinColumn()
     transaction : Transaction
     
-    @CreateDateColumn({type : "timestamp without time zone"})
+    @CreateDateColumn()
     created_at : Date
 
-    @UpdateDateColumn({type : "timestamp without time zone"})
+    @UpdateDateColumn()
     updated_at : Date
 
-    @Column({ type : "timestamp without time zone"})
+    @Column({type : "timestamp"})
     deadline : Date
 }

@@ -9,9 +9,7 @@ import {
 import { Customer } from "./customer.entity"
 import { DeliveryPerson } from "./delivery_person.entity"
 
-@Entity({
-    name : "Addresses"
-})
+@Entity()
 @Unique(["phone_number1"])
 export class Address{
 

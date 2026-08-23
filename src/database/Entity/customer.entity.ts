@@ -13,9 +13,7 @@ import {
 import { Address } from "./address.entity"
 
 
-@Entity({
-    name : "Customers"
-})
+@Entity()
 @Unique(["email"])
 export class Customer {
 
@@ -35,10 +33,10 @@ export class Customer {
     @JoinColumn()
     address : Address
 
-    @CreateDateColumn({type : "timestamp without time zone"})
+    @CreateDateColumn()
     created_at : Date
 
-    @UpdateDateColumn({type : "timestamp without time zone"})
+    @UpdateDateColumn()
     updated_at : Date
 
 }

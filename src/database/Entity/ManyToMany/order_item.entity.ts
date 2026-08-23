@@ -8,9 +8,7 @@ import {
 import { Menu } from "../menu.entity"
 import { Order } from "../order.entity"
 
-@Entity({
-    name : "order_item"
-})
+@Entity()
 export class OrderItem {
 
     @PrimaryGeneratedColumn({type : "bigint"})

@@ -13,9 +13,7 @@ import { DeliveryPerson } from "./delivery_person.entity"
 import { DELIVERY_STATUS } from "../../enums/enums"
 import { Order } from "./order.entity"
 
-@Entity({
-    name : "Delivery"
-})
+@Entity()
 export class Delivery{
 
     @PrimaryGeneratedColumn({type : "bigint"})
@@ -31,6 +29,6 @@ export class Delivery{
     @OneToOne(() => Order, (order) => order.delivery)
     order : Order
 
-    @CreateDateColumn({type : "timestamp without time zone"})
+    @CreateDateColumn()
     created_at : Date
 }

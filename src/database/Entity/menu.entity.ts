@@ -16,9 +16,7 @@ import { Resturant } from "./resturant.entity"
 import { Order } from "./order.entity"
 import { OrderItem } from "./ManyToMany/order_item.entity"
 
-@Entity({
-    name : "Menu"
-})
+@Entity()
 export class Menu { 
 
     @PrimaryGeneratedColumn({type : "bigint"})

@@ -16,9 +16,7 @@ import { RESTURANT_IS_APPROVED, RESTURANT_STATUS } from "../../enums/enums"
 import { Menu } from "./menu.entity"
 import { Order } from "./order.entity"
 
-@Entity({
-    name : "Resturants"
-})
+@Entity()
 @Unique(['resturant_name'])
 export class Resturant{
 
@@ -38,7 +36,7 @@ export class Resturant{
     @JoinColumn()
     address : Address
 
-    @Column({ type : "enum", enum : [RESTURANT_STATUS.RESTURANT_OPEN, RESTURANT_STATUS.RESTURANT_OPEN], default : RESTURANT_STATUS.RESTURANT_CLOSE})
+    @Column({ type : "enum", enum : [RESTURANT_STATUS.RESTURANT_OPEN, RESTURANT_STATUS.RESTURANT_CLOSE], default : RESTURANT_STATUS.RESTURANT_CLOSE})
     status : RESTURANT_STATUS
 
     @ManyToOne(()=> Admin, (admin) => admin.resturants, {onDelete : "SET NULL", nullable : true})
@@ -51,10 +49,10 @@ export class Resturant{
     @OneToMany( () => Order, (order) => order.resturant)
     orders : Order[]
 
-    @CreateDateColumn({type : "timestamp without time zone"})
+    @CreateDateColumn()
     created_at : Date
 
-    @UpdateDateColumn({type : "timestamp without time zone"})
+    @UpdateDateColumn()
     updated_at : Date
 
 }

@@ -11,9 +11,7 @@ import {
 import { Address } from "./address.entity"
 import { Delivery } from "./delivery.entity"
 
-@Entity({
-    name : "delivery"
-})
+@Entity()
 export class DeliveryPerson{
 
     @PrimaryGeneratedColumn({type : "bigint"})
