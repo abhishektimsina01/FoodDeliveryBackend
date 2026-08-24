@@ -25,6 +25,12 @@ export enum RESTURANT_STATUS {
     RESTURANT_CLOSE = "close"
 }
 
+export enum RESTURANT_IS_APPROVED { 
+    RESTURANT_APPROVED = "approved",
+    RESTURANT_PENDING = "pending",
+    RESTURANT_REJECTED = "rejected"
+}
+
 export enum ITEM_TYPE {
     APPETIZER = "APPETIZER",
     MAIN_COURSE = "MAIN_COURSE",

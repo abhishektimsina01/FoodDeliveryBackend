@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { APIError } from "../exception/exception";
+import { APIError, DatabaseException } from "../exception/exception";
 import { HTTP_STATUS } from "../constants/http-status.constants";
 import { SendErrorResponse } from "../utils/response.utils";
 
@@ -15,7 +15,7 @@ export const notFound = (req : Request, res : Response, next : NextFunction) => 
 
 // error passed to it
 export const errorHandler = (err : any, req: Request, res : Response, next : NextFunction) => {
-    // respond the error to the frontend
+    // respond the error to the fronten
     if(err instanceof APIError){
         SendErrorResponse(res, err.message, err.statusCode, err.details)
     }
