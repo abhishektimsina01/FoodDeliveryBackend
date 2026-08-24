@@ -11,7 +11,7 @@ import { Resturant } from "./resturant.entity"
 @Entity()
 export class Admin{
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     admin_id : number
 
     @Column({ type : "varchar"})

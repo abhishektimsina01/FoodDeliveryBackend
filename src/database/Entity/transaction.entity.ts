@@ -12,7 +12,7 @@ import { Order } from "./order.entity"
 @Entity()
 export class Transaction {
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     transanction_id : number
 
     @OneToOne(() => Order, (order) => order.transaction)

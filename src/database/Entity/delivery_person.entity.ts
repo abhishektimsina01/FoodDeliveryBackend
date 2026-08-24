@@ -14,7 +14,7 @@ import { Delivery } from "./delivery.entity"
 @Entity()
 export class DeliveryPerson{
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     delivery_person_id : number
 
     @Column({type : "bigint"})

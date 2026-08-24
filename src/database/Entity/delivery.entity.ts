@@ -16,7 +16,7 @@ import { Order } from "./order.entity"
 @Entity()
 export class Delivery{
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     delivery_id : number
 
     @ManyToOne(() => DeliveryPerson, (person) => person.delivery, {nullable : true})

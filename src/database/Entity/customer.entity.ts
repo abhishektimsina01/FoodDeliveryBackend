@@ -17,19 +17,19 @@ import { Address } from "./address.entity"
 @Unique(["email"])
 export class Customer {
 
-    @PrimaryGeneratedColumn({ type : "bigint"})
+    @PrimaryGeneratedColumn({ type : "int"})
     customer_id : number
 
     @Column({ type : "varchar"})
     username : string
 
-    @Column({ type : "varchar", select : false})
+    @Column({ type : "varchar"})
     password : string
 
     @Column({type : "varchar"})
     email : string
 
-    @OneToOne(() => Address, {onDelete : "CASCADE"})
+    @OneToOne(() => Address, {cascade : ['remove']})
     @JoinColumn()
     address : Address
 

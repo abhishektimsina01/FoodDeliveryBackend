@@ -20,7 +20,7 @@ import { Order } from "./order.entity"
 @Unique(['resturant_name'])
 export class Resturant{
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     resturant_id : number
 
     @Column({type : "varchar"})
@@ -31,6 +31,9 @@ export class Resturant{
 
     @Column({type : "enum", enum : RESTURANT_IS_APPROVED, default : RESTURANT_IS_APPROVED.RESTURANT_PENDING})
     approval_status : RESTURANT_IS_APPROVED
+
+    @Column({type : "varchar"})
+    password : string
 
     @OneToOne(()=> Address, {onDelete : "CASCADE"})
     @JoinColumn()

@@ -19,7 +19,7 @@ import { OrderItem } from "./ManyToMany/order_item.entity"
 @Entity()
 export class Menu { 
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     item_id : number
 
     @Column({type : "varchar"})

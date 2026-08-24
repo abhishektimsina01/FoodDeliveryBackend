@@ -19,7 +19,7 @@ import { Transaction } from "./transaction.entity"
 @Entity()
 export class Order {
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     order_id : number
 
     @Column({type : "enum", enum : RESTURANT_ORDER_STATUS, default : RESTURANT_ORDER_STATUS.ORDER_PENDING})

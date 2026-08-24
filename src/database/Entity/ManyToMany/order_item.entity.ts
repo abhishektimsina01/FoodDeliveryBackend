@@ -11,7 +11,7 @@ import { Order } from "../order.entity"
 @Entity()
 export class OrderItem {
 
-    @PrimaryGeneratedColumn({type : "bigint"})
+    @PrimaryGeneratedColumn({type : "int"})
     link_id : number
 
     @ManyToOne(() => Menu, (menu) => menu.orders)

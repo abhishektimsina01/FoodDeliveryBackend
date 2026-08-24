@@ -14,7 +14,7 @@ import { Address } from "./Entity/address.entity.js"
 import { OrderItem } from "./Entity/ManyToMany/order_item.entity.js"
 
 
-const AppDataSource = new DataSource({
+export const AppDataSource = new DataSource({
     type : "mysql",
     host : "localhost",
     username : getEnvProperty("db_username"),
@@ -38,7 +38,7 @@ const AppDataSource = new DataSource({
 export const connectToDatabase = async() => {
     let count = 1
     let status = false
-    while(count == 1){
+    while(count <= 5){
         try{
             await AppDataSource.initialize()
             console.log("Database Connected successfully✅.")
@@ -49,9 +49,6 @@ export const connectToDatabase = async() => {
             console.log(`${count} failed to connect.`)
             // console.log(err)
             status = false
-            if(count == 1 ){
-                console.log(err.message)
-            }
             count++
         }
     }

@@ -20,7 +20,7 @@ export class Address{
     street_name : string
 
     @Column({type : "int"})
-    ward_num : string
+    ward_num : number
 
     @Column({type : "varchar"})
     city : string
