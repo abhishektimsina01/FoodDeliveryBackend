@@ -1,10 +1,11 @@
 import { Response } from "express";
 import { genericAndNull } from "../types/types";
 
-export const SendErrorResponse = <T>(res : Response, message : string, statusCode : number, details : genericAndNull<T> = null) => {    
+export const SendErrorResponse = <T>(res : Response, name : string, message : string, statusCode : number, details : genericAndNull<T> = null) => {    
     return res.status(statusCode).json({
         success : false,
         statusCode : statusCode,
+        name : name,
         message : message,
         details : details
     })

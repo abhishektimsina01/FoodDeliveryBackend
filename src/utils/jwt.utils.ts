@@ -17,7 +17,6 @@ export const generateToken = (userInfo : IjwtData, role : roleType) => {
 export const verifyToken = (access_token : string) => {
     try{
         const payload = jwt.verify(access_token, getEnvProperty("access_token_secret_key"))
-        console.log(payload)
         return payload as IPayload
     }
     catch(err){
