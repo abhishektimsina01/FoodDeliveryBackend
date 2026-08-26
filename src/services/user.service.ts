@@ -18,7 +18,7 @@ export class UserService {
     public getProfileService = async(userData : IjwtData & { role : Role}) => {
         try{
             const {id, username, role} = userData
-
+            console.log(userData)
             if(this.roleHelper.isAdmin(role)){
                 // send data that is required for the admin
             }
@@ -31,14 +31,11 @@ export class UserService {
 
             else if(this.roleHelper.isResturant(role)){
                 // send data that is required for the resturant
-                const resturant = await this.resturantRepo.findResturant(id)
+                const resturant = await this.resturantRepo.findResturant("resturant_id", id)
+                console.log(resturant.created_at)
                 return resturant
             }
-
-            else{
-                // send data that is required for the delivery person
-            }
-        }
+        }   
         catch(err){
             throw err
         }
