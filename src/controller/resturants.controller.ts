@@ -29,18 +29,33 @@ export const getResturant = async (req : Request<IRestroParams>, res : Response,
     }
 }
 
-export const updateResturant = async (req : Request<IRestroParams>, res : Response, next : NextFunction) => {
+export const updateResturant = async (req : Request, res : Response, next : NextFunction) => {
     try{
-
+        const {id, username, role} = req.user
+        const resturantData = req.body
+        const response = await resturantService.updateResturant({id, username, role}, resturantData)
+        return SendAPIResponse(res, HTTP_STATUS.SUCCESS.OK.CODE, "Resturant updated", response)
     }
     catch(err){
-        
+        next(err)
+    }
+}
+
+export const updateResturantAdmin = async (req : Request<IRestroParams>, res : Response, next : NextFunction) => {
+    try{
+        const response = await resturantService.updateResturantAdmin(req.user, req.body, req.params.id)
+        return SendAPIResponse(res, HTTP_STATUS.SUCCESS.OK.CODE, "resturant updated", response)
+    }
+    catch(err){
+        next(err)
     }
 }
 
 export const deleteResturant = async (req : Request<IRestroParams>, res : Response, next : NextFunction) => {
     try{
-
+        const resturantId = req.params.id
+        const resturant = await resturantService.deleteResturant(resturantId)
+        return SendAPIResponse(res, HTTP_STATUS.SUCCESS.OK.CODE, "Resturant deleted", resturant)
     }
     catch(err){
         next(err)
