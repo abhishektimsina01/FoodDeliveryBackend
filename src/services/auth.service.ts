@@ -78,7 +78,7 @@ export class AuthService {
 
     public ResturantSignUpService = async (restroData : IResturantSignUp) => {
         try{
-            const resturant = await this.restroRepo.findResturant(restroData.owner_name, restroData.resturant_name)
+            const resturant = await this.restroRepo.findResturant("email", restroData.email, true)
             if(resturant){
                 throw new APIError("resturant already created under that name", HTTP_STATUS.CLIENT_ERROR.CONFLICT.CODE)
             }
@@ -105,7 +105,7 @@ export class AuthService {
 
     public ResturantLogInService = async(restroData : IResturantLogIn) => {
         try{
-            const resturant = await this.restroRepo.findResturant(restroData.owner_name, restroData.resturant_name, true)
+            const resturant = await this.restroRepo.findResturant("email", restroData.email, true)
             if(!resturant){
                 throw new APIError("no resturant found", HTTP_STATUS.CLIENT_ERROR.NOT_FOUND.CODE)
             }
