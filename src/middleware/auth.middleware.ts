@@ -15,21 +15,19 @@ export const authenticationMiddleware = async(req : Request, res : Response, nex
             throw new AuthenticationError("TOKEN_NOT_FOUND", "token not found")
         }
         const payload : IPayload = verifyToken(access_token)
-        let IsUser : boolean | Object
+        let IsUser : boolean = false
         if(payload.role == Role.CUSTOMER){
-            IsUser = await customerRepo.checkCustomer("id", payload.id)
+            IsUser = await customerRepo.checkCustomer("customer_id", payload.id)
         }
         else if(payload.role == Role.RESTURANT){
             IsUser = await restroRepo.checkResturant(payload.id)
+            console.log(IsUser)
         }
-        if(IsUser){
+        if(!IsUser){
             throw new AuthenticationError("USER_NOT_FOUND", "seems like the users doesnot exist")
         }
-        req.user = {
-            id : payload.id,
-            username : payload.username,
-            role : payload.role
-        }
+        const {iat, exp, ...userData} = payload
+        req.user = userData
         next()
     }
     catch(err){
