@@ -14,7 +14,7 @@ export class OrderItem {
     @PrimaryGeneratedColumn({type : "int"})
     link_id : number
 
-    @ManyToOne(() => Menu, (menu) => menu.orders)
+    @ManyToOne(() => Menu)
     @JoinColumn()
     item : Menu
 

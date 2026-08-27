@@ -17,7 +17,7 @@ import { Menu } from "./menu.entity"
 import { Order } from "./order.entity"
 
 @Entity()
-@Unique(['resturant_name'])
+@Unique(['resturant_name', 'email'])
 export class Resturant{
 
     @PrimaryGeneratedColumn({type : "int"})
@@ -28,6 +28,9 @@ export class Resturant{
 
     @Column({type : "varchar"})
     owner_name : string
+
+    @Column({type : "varchar"})
+    email : string
 
     @Column({type : "enum", enum : RESTURANT_IS_APPROVED, default : RESTURANT_IS_APPROVED.RESTURANT_PENDING})
     approval_status : RESTURANT_IS_APPROVED

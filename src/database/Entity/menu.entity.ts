@@ -2,14 +2,8 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
     ManyToOne,
     JoinColumn,
-    Unique,
-    ManyToMany,
-    Or,
-    OneToMany,
 } from "typeorm"
 import { ITEM_TYPE } from "../../enums/enums"
 import { Resturant } from "./resturant.entity"
@@ -34,8 +28,5 @@ export class Menu {
     @ManyToOne(()=> Resturant, (resturant) => resturant.items, {onDelete : "CASCADE"})
     @JoinColumn()
     resturant : Resturant
-
-    @OneToMany(() => OrderItem, (order_item) => order_item.item)
-    orders : OrderItem[]
 
 }
