@@ -1,4 +1,4 @@
-import { RESTURANT_IS_APPROVED, RESTURANT_STATUS, Role } from "../enums/enums"
+import { ITEM_TYPE, RESTURANT_IS_APPROVED, RESTURANT_STATUS, Role } from "../enums/enums"
 
 export interface IAddress {
     city : string,
@@ -67,4 +67,10 @@ export interface IResturantUpdate {
 
 export interface IResturantUpdateByAdmin {
     approval_status : RESTURANT_IS_APPROVED,
+}
+
+export interface IMenuData {
+    item_name : string
+    item_type : ITEM_TYPE
+    price : number
 }
