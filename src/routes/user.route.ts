@@ -14,10 +14,11 @@ userRouter.delete("/deleteAllUsers", async(req : Request, res : Response, next :
         const resturants = await restroRepo.deleteResturants()
         const users = await custoRepo.deleteCustomer()
         const addresses = await deleteAdress()
+        res.clearCookie("access_token").clearCookie("refresh_token")
         res.json({users, resturants, addresses})
     }
     catch(err){
-        
+        next(err)
     }
 })
 userRouter.get("/getProfile", authenticationMiddleware, getProfile)

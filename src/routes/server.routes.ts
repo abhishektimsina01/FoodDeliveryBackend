@@ -2,8 +2,7 @@
 import { Application } from "express";
 import { errorHandler, notFound } from "../middleware/error.handler.middleware";
 import { authRouter } from "./auth.routes";
-import { adminRouter } from "./admin.route";
-import { customerRouter } from "./customer.route";
+import { userRouter } from "./user.route";
 import { deliveryRouter } from "./delivery.route";
 import { menuRouter } from "./menu.route";
 import { orderRouter } from "./order.route"
@@ -13,9 +12,7 @@ import { transactionRouter } from "./trasnsaction.route";
 export const serverRoute = (app : Application) => {
     app.use("/api/v1", [
         authRouter,
-        adminRouter,
-        authRouter,
-        customerRouter,
+        userRouter,
         deliveryRouter,
         menuRouter,
         orderRouter,
