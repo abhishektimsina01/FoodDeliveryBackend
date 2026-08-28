@@ -4,7 +4,7 @@ import { APIError } from "../exception/exception";
 import { RoleHelper } from "../Helper/role.helper";
 import { IResturantUpdate, IResturantUpdateByAdmin } from "../interface/interfaces";
 import { ResturantRepository } from "../repositories/resturant.repos";
-import { IResturantFilterType, IuserData } from "../types/types";
+import { IResturantFilterType, IuserData, roleType } from "../types/types";
 import { purifyResturantFilter } from "../utils/filterPurifier.utils";
 
 export class ResturantService {
@@ -21,7 +21,7 @@ export class ResturantService {
         if(this.roleHelper.isAdmin(role)){
             // what will the admin see
             const purifiedFilter : IResturantFilterType = purifyResturantFilter(filter, role)
-            const resturants = await this.resturantRepo.findResturant(role as Exclude<Role, Role.RESTURANT>, {...purifiedFilter})
+            const resturants = await this.resturantRepo.findResturant(role as Exclude<roleType, Role.RESTURANT>, {...purifiedFilter})
             return resturants
         }
         else if(this.roleHelper.isCustomer(role)){
