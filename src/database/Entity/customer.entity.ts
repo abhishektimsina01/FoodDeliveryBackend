@@ -11,6 +11,8 @@ import {
     UpdateDateColumn
 } from "typeorm"
 import { Address } from "./address.entity"
+import { Order } from "./order.entity"
+import { Transaction } from "./transaction.entity"
 
 
 @Entity()
@@ -32,6 +34,12 @@ export class Customer {
     @OneToOne(() => Address, {cascade : ['remove']})
     @JoinColumn()
     address : Address
+
+    @OneToMany(() => Order, (order) => order.customer)
+    orders : Order[]
+
+    @OneToMany(() => Transaction, (trans) => trans.customer)
+    transaction : Transaction[]
 
     @CreateDateColumn()
     created_at : Date

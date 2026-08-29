@@ -15,6 +15,7 @@ import { Admin } from "./admin.entity"
 import { RESTURANT_IS_APPROVED, RESTURANT_STATUS } from "../../enums/enums"
 import { Menu } from "./menu.entity"
 import { Order } from "./order.entity"
+import { Transaction } from "./transaction.entity"
 
 @Entity()
 @Unique(['resturant_name', 'email'])
@@ -54,6 +55,9 @@ export class Resturant{
 
     @OneToMany( () => Order, (order) => order.resturant)
     orders : Order[]
+
+    @OneToMany(() => Transaction, (trans) => trans.resturant)
+    transaction : Transaction[]
 
     @CreateDateColumn()
     created_at : Date

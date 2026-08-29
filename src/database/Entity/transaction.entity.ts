@@ -4,10 +4,13 @@ import {
     Column,
     PrimaryGeneratedColumn,
     OneToOne,
-    JoinColumn
+    JoinColumn,
+    ManyToOne
 
 } from "typeorm"
 import { Order } from "./order.entity"
+import { Customer } from "./customer.entity"
+import { Resturant } from "./resturant.entity"
 
 @Entity()
 export class Transaction {
@@ -18,6 +21,17 @@ export class Transaction {
     @OneToOne(() => Order, (order) => order.transaction)
     order: Order
 
-    // left till the endpoints for this are made.
+    @ManyToOne(() => Customer, (customer) => customer.transaction)
+    @JoinColumn()
+    customer : Customer
 
+    @ManyToOne(() => Resturant, (resturant) => resturant.transaction)
+    @JoinColumn()
+    resturant : Resturant
+
+    @Column({type : "int", nullable : true})
+    payment : number | null
+
+
+    // left till the endpoints for this are made.
 }
