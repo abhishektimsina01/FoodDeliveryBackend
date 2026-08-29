@@ -21,7 +21,6 @@ export const authenticationMiddleware = async(req : Request, res : Response, nex
         }
         else if(payload.role == Role.RESTURANT){
             IsUser = await restroRepo.checkResturant(payload.id)
-            console.log(IsUser)
         }
         if(!IsUser){
             throw new AuthenticationError("USER_NOT_FOUND", "seems like the users doesnot exist")
