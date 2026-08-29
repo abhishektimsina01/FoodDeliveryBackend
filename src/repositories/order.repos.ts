@@ -3,22 +3,28 @@ import { Order } from "../database/Entity/order.entity";
 import { OrderItem } from "../database/Entity/ManyToMany/order_item.entity";
 import { Menu } from "../database/Entity/menu.entity";
 import { AppDataSource } from "../database/connect";
-import { IOrderData } from "../interface/interfaces";
+import { IOrderData, ITransaction } from "../interface/interfaces";
 import { DatabaseException } from "../exception/exception";
+import { Transaction } from "../database/Entity/transaction.entity";
+import Stripe from "stripe";
+import { RESTURANT_ORDER_STATUS } from "../enums/enums";
 
 export class OrderRepo {
     orderRepo : Repository<Order>
     orderItemRepo : Repository<OrderItem>
     menuItemRepo : Repository<Menu>
+    transactionRepo : Repository<Transaction>
 
     constructor (){
         this.orderRepo = AppDataSource.getRepository(Order)
         this.orderItemRepo = AppDataSource.getRepository(OrderItem)
         this.menuItemRepo = AppDataSource.getRepository(Menu)
+        this.transactionRepo = AppDataSource.getRepository(Transaction)
     }
 
     public createOrder = async (orderData : IOrderData, customer_id : number) => {
         try{
+
             const {items} = orderData
             const result = await AppDataSource.transaction( async (manager) => {
             const order = manager.create(Order, {
@@ -30,16 +36,24 @@ export class OrderRepo {
                 }
             })
             const finalOrder = await manager.save(Order, order)
+
+
             const {order_id} = finalOrder
             const itemDta = items.map((item) => {
                 return {
-                    order_id : order_id,
-                    item_id : item.item_id,
+                    order : {
+                        order_id : order_id
+                    },
+                    item : {
+                        item_id : item.item_id,
+                    },
                     quantity : item.quantity
                 }
             })
             const order_item = manager.create(OrderItem, itemDta)
             const finalOrderItem = await manager.save(order_item)
+
+
             return {finalOrder, finalOrderItem}
         })
         return result
@@ -57,7 +71,46 @@ export class OrderRepo {
 
     }
 
+    public deleteOrders = async () => {
+        const orders = await this.orderRepo.find()
+        const order_items = await this.orderItemRepo.find()
+        await this.orderRepo.remove(orders)
+        // await this.orderItemRepo.remove(order_items)
+        return {orders, order_items}
+    }
+
     public getOrders = async () => {
 
+    }
+
+    public sessionAddOrder = async (orderData : number, data : ITransaction) => {
+        const {id} = data
+        const order = await this.orderRepo.update({
+                order_id : orderData
+        },{
+            session_id : id
+        })
+        return order
+    }
+
+    public transactionDone = async (session_id : string, payment_id : string) => {
+        await this.orderRepo.update({
+            session_id : session_id
+        },{
+            status : RESTURANT_ORDER_STATUS.ORDER_BOOKED
+        })
+        const order = await this.orderRepo.findOne({
+             where : {
+                session_id : session_id
+             }
+        })
+
+        const transaction = this.transactionRepo.create({
+            payment_id : payment_id,
+            customer : order.customer,
+            resturant : order.resturant,
+        })
+        const saved_transaction = await this.transactionRepo.save(transaction)
+        return {order, saved_transaction}
     }
 }
