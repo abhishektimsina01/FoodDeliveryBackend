@@ -18,7 +18,7 @@ export class OrderItem {
     @JoinColumn()
     item : Menu
 
-    @ManyToOne(() => Order, (order) => order.order_item)
+    @ManyToOne(() => Order, (order) => order.order_item, {onDelete : "CASCADE"})
     @JoinColumn()
     order : Order
 

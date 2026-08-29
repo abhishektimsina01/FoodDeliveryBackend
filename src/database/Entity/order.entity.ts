@@ -50,7 +50,7 @@ export class Order {
     @OneToOne(() => Transaction, (trans) => trans.order, {nullable : true})
     @JoinColumn()
     transaction : Transaction | null
-    
+
     @CreateDateColumn()
     created_at : Date
 
@@ -59,4 +59,8 @@ export class Order {
 
     @Column({type : "timestamp", nullable : true})
     deadline : Date | null
+
+    @Column({type : "varchar", nullable : true})
+    session_id : string
+
 }
