@@ -8,6 +8,7 @@ import { DatabaseException } from "../exception/exception";
 import { Transaction } from "../database/Entity/transaction.entity";
 import Stripe from "stripe";
 import { RESTURANT_ORDER_STATUS } from "../enums/enums";
+import { IuserData } from "../types/types";
 
 export class OrderRepo {
     orderRepo : Repository<Order>
@@ -79,8 +80,43 @@ export class OrderRepo {
         return {orders, order_items}
     }
 
-    public getOrders = async () => {
-
+    public getOrders = async (restroData : IuserData) => {
+        const orders = await this.orderRepo.find({
+            where : {
+                resturant : {
+                    resturant_id : restroData.id
+                }
+            },
+            select : {
+                order_id : true,
+                order_item : {
+                    link_id : true,
+                    item : {
+                        item_id : true,
+                        item_name : true,
+                        item_type : true
+                    },
+                },
+                cost_order : true,
+                customer : {
+                    customer_id : true,
+                    username : true
+                },
+                status : true,
+                transaction : {
+                    transanction_id : true
+                },
+                created_at : true,
+            },
+            relations : {
+                order_item : {
+                    item : true,
+                },
+                transaction : true,
+                customer : true,
+            }
+        })
+        return orders
     }
 
     public sessionAddOrder = async (orderData : number, data : ITransaction) => {
