@@ -33,3 +33,17 @@ export const authenticationMiddleware = async(req : Request, res : Response, nex
         next(err)
     }
 }
+
+export const authorization = (...AllowedRole : Role[]) => {
+    return (req : Request, res : Response, next : NextFunction) => {
+        const {role} = req.user
+        if(AllowedRole.includes(role)){
+            console.log("you are allowed")
+            next()
+        }
+        else{
+            const err = new AuthenticationError("USER_NOT_ALLOWED", `${role} is not allowed`)
+            next(err)
+        }
+    }
+}
