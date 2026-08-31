@@ -74,3 +74,25 @@ export interface IMenuData {
     item_type : ITEM_TYPE
     price : number
 }
+
+export interface IItem {
+    item_id : number
+    quantity : number
+}
+
+export interface IOrderData {
+    resturant_id : number
+    items : IItem[]
+    deadline : Date | null
+}
+
+export interface ITransaction {
+    id: string;
+    amount_total: number;
+    currency: string;
+    mode: "payment";
+    payment_status: "unpaid" | "paid" | "no_payment_required";
+    status: "open" | "complete" | "expired";
+    payment_intent: string | null;
+    metadata: Record<string, string>;
+}
