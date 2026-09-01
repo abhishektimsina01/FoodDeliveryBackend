@@ -17,7 +17,6 @@ export const notFound = (req : Request, res : Response, next : NextFunction) => 
 export const errorHandler = (err : any, req: Request, res : Response, next : NextFunction) => {
     // respond the error to the frontend
     if(err instanceof Error || APIError){ 
-        console.log(err)
         SendErrorResponse(res, err.name, err.message, err.statusCode, err.details)
     }
 }
