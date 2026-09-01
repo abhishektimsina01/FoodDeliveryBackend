@@ -1,6 +1,6 @@
 import { OrderRepo } from "../repositories/order.repos";
 import { IuserData } from "../types/types";
-import { IOrderData, ITransaction } from "../interface/interfaces";
+import { IjwtData, IOrderData, ITransaction } from "../interface/interfaces";
 import {stripe} from  "../config/stripe.config"
 
 
@@ -29,8 +29,8 @@ export class OrderService {
                         quantity : 1
                     }
                 ],
-                success_url : "http://localhost:8010/api/v1/webhook/success",
-                cancel_url : "http://localhost:8010/api/v1/webhook/failure"
+                success_url : "https://pills-buffer-operate-algorithm.trycloudflare.com/api/v1/webhook/success",
+                cancel_url : "https://pills-buffer-operate-algorithm.trycloudflare.com/api/v1/webhook/failure"
             })
             console.log(session.id)
             const transaction = await this.orderRepo.sessionAddOrder(order_id, session as ITransaction)
@@ -42,6 +42,11 @@ export class OrderService {
         catch(err){
             throw err
         }
+    }
+
+    public getOrders = async (userData : IuserData) => {
+        const orders = await this.orderRepo.getOrders(userData)
+        return orders
     }
 
     public deleteOrders = async () => {

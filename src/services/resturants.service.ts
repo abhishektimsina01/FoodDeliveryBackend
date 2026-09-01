@@ -4,7 +4,7 @@ import { APIError } from "../exception/exception";
 import { RoleHelper } from "../Helper/role.helper";
 import { IResturantUpdate, IResturantUpdateByAdmin } from "../interface/interfaces";
 import { ResturantRepository } from "../repositories/resturant.repos";
-import { IResturantFilterType, IuserData, roleType } from "../types/types";
+import { genericAndNull, IResturantFilterType, IuserData, roleType } from "../types/types";
 import { purifyResturantFilter } from "../utils/filterPurifier.utils";
 
 export class ResturantService {
