@@ -10,6 +10,7 @@ import {
 } from "typeorm"
 import { Address } from "./address.entity"
 import { Delivery } from "./delivery.entity"
+import { User } from "./user.entity"
 
 @Entity()
 export class DeliveryPerson{
@@ -20,9 +21,9 @@ export class DeliveryPerson{
     @Column({type : "bigint"})
     name : string
 
-    @OneToOne(() => Address, {onDelete : "CASCADE"})
+    @OneToOne(() => User)
     @JoinColumn()
-    address : Address
+    user : User
 
     @OneToMany(() => Delivery, (delivery) => delivery.delivery_person)
     delivery : Delivery[]

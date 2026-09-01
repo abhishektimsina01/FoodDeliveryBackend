@@ -13,6 +13,7 @@ import {
 import { Address } from "./address.entity"
 import { Order } from "./order.entity"
 import { Transaction } from "./transaction.entity"
+import { User } from "./user.entity"
 
 
 @Entity()
@@ -31,15 +32,15 @@ export class Customer {
     @Column({type : "varchar"})
     email : string
 
-    @OneToOne(() => Address, {cascade : ['remove']})
-    @JoinColumn()
-    address : Address
-
     @OneToMany(() => Order, (order) => order.customer)
     orders : Order[]
 
     @OneToMany(() => Transaction, (trans) => trans.customer)
     transaction : Transaction[]
+
+    @OneToOne(() => User)
+    @JoinColumn()
+    user : User
 
     @CreateDateColumn()
     created_at : Date

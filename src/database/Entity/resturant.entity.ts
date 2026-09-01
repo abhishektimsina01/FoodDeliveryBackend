@@ -16,6 +16,7 @@ import { RESTURANT_IS_APPROVED, RESTURANT_STATUS } from "../../enums/enums"
 import { Menu } from "./menu.entity"
 import { Order } from "./order.entity"
 import { Transaction } from "./transaction.entity"
+import { User } from "./user.entity"
 
 @Entity()
 @Unique(['resturant_name', 'email'])
@@ -39,10 +40,6 @@ export class Resturant{
     @Column({type : "varchar"})
     password : string
 
-    @OneToOne(()=> Address, {onDelete : "CASCADE"})
-    @JoinColumn()
-    address : Address
-
     @Column({ type : "enum", enum : [RESTURANT_STATUS.RESTURANT_OPEN, RESTURANT_STATUS.RESTURANT_CLOSE], default : RESTURANT_STATUS.RESTURANT_CLOSE})
     status : RESTURANT_STATUS
 
@@ -58,6 +55,10 @@ export class Resturant{
 
     @OneToMany(() => Transaction, (trans) => trans.resturant)
     transaction : Transaction[]
+
+    @OneToOne(() => User)
+    @JoinColumn()
+    user : User
 
     @CreateDateColumn()
     created_at : Date
