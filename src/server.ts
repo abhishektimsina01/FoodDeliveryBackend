@@ -1,5 +1,5 @@
 import { appConfiguration } from "./index"
 
 (async() => {
-    await appConfiguration()
+    return await appConfiguration()
 })()

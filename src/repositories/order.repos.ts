@@ -6,7 +6,6 @@ import { AppDataSource } from "../database/connect";
 import { IOrderData, ITransaction } from "../interface/interfaces";
 import { DatabaseException } from "../exception/exception";
 import { Transaction } from "../database/Entity/transaction.entity";
-import Stripe from "stripe";
 import { RESTURANT_ORDER_STATUS } from "../enums/enums";
 import { IuserData } from "../types/types";
 
@@ -121,12 +120,17 @@ export class OrderRepo {
 
     public sessionAddOrder = async (orderData : number, data : ITransaction) => {
         const {id} = data
-        const order = await this.orderRepo.update({
+        await this.orderRepo.update({
                 order_id : orderData
         },{
             session_id : id
         })
-        return order
+        const fetch_order = await this.orderRepo.findOne({
+            where : {
+                order_id : orderData
+            }
+        })
+        return fetch_order
     }
 
     public transactionDone = async (session_id : string, payment_id : string) => {

@@ -11,7 +11,7 @@ export const SendErrorResponse = <T>(res : Response, name : string, message : st
     })
 }
 
-export const SendAPIResponse= <T>(res : Response, statusCode : number, message : string, data : genericAndNull<T> = null) => {
+export const SendAPIResponse= <T>(res : Response, statusCode : number, message : string, data : T = null) => {
     return res.status(statusCode).json({
         success : true,
         statusCode : statusCode,

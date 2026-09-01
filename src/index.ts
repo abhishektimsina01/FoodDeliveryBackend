@@ -2,9 +2,9 @@ import express from "express"
 import { Express } from "express"
 import {getEnvProperty} from "./utils/get.env.utils.js"
 import { connectToDatabase } from "./database/connect.js"
-
 import { serverMiddleware } from "./middleware/server.middleware.js"
 import { serverRoute } from "./routes/server.routes.js"
+
 
 export const appConfiguration = async() => {
    try{
@@ -18,9 +18,10 @@ export const appConfiguration = async() => {
             console.log("server couldnot start❌")
         }
         else{
-            console.log("Server started successfully✅.")
+            console.log(`Server started successfully on port ${getEnvProperty("port")}.✅`)
         }
     })
+    return app
    }
    catch(err){
     console.log(err.message)
