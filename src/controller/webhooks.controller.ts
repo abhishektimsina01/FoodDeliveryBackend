@@ -2,15 +2,14 @@ import express, { Request, response, Response } from "express";
 import Stripe from "stripe";
 import { OrderRepo } from "../repositories/order.repos";
 import { SendAPIResponse } from "../utils/response.utils";
-
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import { stripe } from "../config/stripe.config";
+import { getEnvProperty } from "../utils/get.env.utils";
 
 const orderRepo = new OrderRepo()
+
  const payment = async(req: Request, res: Response) => {
-
         const signature = req.headers["stripe-signature"];
-
+        console.log(signature)
         if (!signature) {
             return res.status(400).send("Missing Stripe signature");
         }
@@ -21,11 +20,10 @@ const orderRepo = new OrderRepo()
             event = stripe.webhooks.constructEvent(
                 req.body,
                 signature,
-                process.env.STRIPE_WEBHOOK_SECRET!
+                getEnvProperty("stripe_webhook_secret")!
             );
         } catch (error) {
             console.error("Webhook signature verification failed");
-
             return res.status(400).send("Invalid webhook signature");
         }
         console.log("Stripe event:", event.type);

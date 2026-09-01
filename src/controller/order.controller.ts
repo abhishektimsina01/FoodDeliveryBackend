@@ -45,7 +45,8 @@ export const getOrder = async (req : Request<IRestroParams>, res : Response, nex
 
 export const getOrders = async (req : Request, res : Response, next : NextFunction) => {
     try{
-        // just fetch all orders
+        const orders = (await orderService.getOrders(req.user))
+        return SendAPIResponse(res, 200, "orders fetched", orders)
     }
     catch(err){
         next(err)
