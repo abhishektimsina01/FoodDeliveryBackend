@@ -1,0 +1,26 @@
+name : FoodDelivery CI
+
+on :
+  push :
+    branches : ["master"]
+
+jobs :
+  
+  test :
+    # machine for running the code
+    runs-on : ubuntu-latest
+    steps :
+        # brings the code from the repo to the machine
+      - uses : actions/checkout@v4
+      - run : npm install
+      - run : npm run build
+
+  build : 
+    # after test job is done
+    needs : test
+    # build the docker image
+    runs-on : ubuntu-latest
+    steps : 
+      - uses : actions/checkout@v4
+      - run : docker build -t FoodDelivery .
+      `
