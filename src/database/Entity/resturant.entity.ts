@@ -16,7 +16,6 @@ import { RESTURANT_IS_APPROVED, RESTURANT_STATUS } from "../../enums/enums"
 import { Menu } from "./menu.entity"
 import { Order } from "./order.entity"
 import { Transaction } from "./transaction.entity"
-import { User } from "./user.entity"
 
 @Entity()
 @Unique(['resturant_name', 'email'])
@@ -55,10 +54,6 @@ export class Resturant{
 
     @OneToMany(() => Transaction, (trans) => trans.resturant)
     transaction !: Transaction[]
-
-    @OneToOne(() => User)
-    @JoinColumn()
-    user !: User
 
     @OneToOne(() => Address)
     @JoinColumn()
