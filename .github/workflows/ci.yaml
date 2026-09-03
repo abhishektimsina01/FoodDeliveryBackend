@@ -18,13 +18,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # # Run Jest tests
-      # - name: Run tests
-      #   run: npm test
+      # Check if TypeScript project builds successfully
+      - name: Build application
+        run: npm run build
 
 
   build:
-    # Only run if the test job succeeds
+    # Run only if test job succeeds
     needs: test
 
     runs-on: ubuntu-latest
