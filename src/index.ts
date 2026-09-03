@@ -24,6 +24,6 @@ export const appConfiguration = async() => {
     return app
    }
    catch(err){
-    console.log(err.message)
+    console.log(err)
    }
 }

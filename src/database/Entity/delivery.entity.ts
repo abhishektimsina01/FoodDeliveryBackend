@@ -17,18 +17,18 @@ import { Order } from "./order.entity"
 export class Delivery{
 
     @PrimaryGeneratedColumn({type : "int"})
-    delivery_id : number
+    delivery_id !: number
 
     @ManyToOne(() => DeliveryPerson, (person) => person.delivery, {nullable : true})
     @JoinColumn()
-    delivery_person : DeliveryPerson
+    delivery_person !: DeliveryPerson
 
     @Column({type : "enum", enum : DELIVERY_STATUS, default : DELIVERY_STATUS.ORDER_PLACED})
-    order_status : DELIVERY_STATUS
+    order_status !: DELIVERY_STATUS
 
     @OneToOne(() => Order, (order) => order.delivery)
-    order : Order
+    order !: Order
 
     @CreateDateColumn()
-    created_at : Date
+    created_at !: Date
 }

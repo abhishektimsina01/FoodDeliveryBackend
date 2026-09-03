@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { Resturant } from "../database/Entity/resturant.entity";
 import { AppDataSource } from "../database/connect";
-import { IResturantSignUp, IResturantUpdate } from "../interface/interfaces";
+import { IAdmin, ICustomerFilter, IResturantSignUp, IResturantUpdate } from "../interface/interfaces";
 import { RESTURANT_IS_APPROVED, Role } from "../enums/enums";
 import { allResturantsSelect, resturantSelect } from "../constants/project.constants";
 import { IResturantFilterType, IResturantUpdateType } from "../types/types";
@@ -13,7 +13,7 @@ export class ResturantRepository {
         this.resturantRepo = AppDataSource.getRepository(Resturant)
     }
 
-    public findResturantDetailed = async <T>(key : string, value : T, role : Role ) => {
+    public findResturantDetailed = async <T>(key : string, value : T, role : Exclude<Role, Role.DELIVERY> ) => {
         const resturant = await this.resturantRepo.findOne({
             where : {
                 [`${key}`] : value
@@ -46,10 +46,10 @@ export class ResturantRepository {
                 created_at : true
             },
         })
-        return resturant
+        return resturant as Resturant
     }
 
-    public findResturants = async (role : Exclude<Role, Role.RESTURANT>, filter : IResturantFilterType & { approval_status : RESTURANT_IS_APPROVED.RESTURANT_APPROVED}) => {
+    public findResturants = async (role : Exclude<Role, Role.RESTURANT | Role.DELIVERY>, filter : ICustomerFilter & { approval_status : RESTURANT_IS_APPROVED} | IAdmin ) => {
         const resturants = await this.resturantRepo.find({
             where : {
                 ...filter

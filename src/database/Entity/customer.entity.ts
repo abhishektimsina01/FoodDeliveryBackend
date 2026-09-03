@@ -21,31 +21,35 @@ import { User } from "./user.entity"
 export class Customer {
 
     @PrimaryGeneratedColumn({ type : "int"})
-    customer_id : number
+    customer_id !: number
 
     @Column({ type : "varchar"})
-    username : string
+    username !: string
 
     @Column({ type : "varchar"})
-    password : string
+    password !: string
 
     @Column({type : "varchar"})
-    email : string
+    email !: string
 
     @OneToMany(() => Order, (order) => order.customer)
-    orders : Order[]
+    orders !: Order[]
 
     @OneToMany(() => Transaction, (trans) => trans.customer)
-    transaction : Transaction[]
+    transaction !: Transaction[]
 
     @OneToOne(() => User)
     @JoinColumn()
-    user : User
+    user !: User
+
+    @OneToOne(() => Address)
+    @JoinColumn()
+    address !: Address
 
     @CreateDateColumn()
-    created_at : Date
+    created_at !: Date
 
     @UpdateDateColumn()
-    updated_at : Date
+    updated_at !: Date
 
 }

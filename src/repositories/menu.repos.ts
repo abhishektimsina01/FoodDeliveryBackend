@@ -42,7 +42,7 @@ export class MenuRepository {
             where : {
                 resturant_id : resturant_id
             },
-            select : {
+            select : {  
                 resturant_id : true,
                 items : {
                     item_id : true,

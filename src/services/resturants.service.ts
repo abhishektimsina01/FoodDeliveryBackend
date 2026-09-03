@@ -2,7 +2,7 @@ import { HTTP_STATUS } from "../constants/http-status.constants";
 import { RESTURANT_IS_APPROVED, Role } from "../enums/enums";
 import { APIError } from "../exception/exception";
 import { RoleHelper } from "../Helper/role.helper";
-import { IResturantUpdate, IResturantUpdateByAdmin } from "../interface/interfaces";
+import { IAdmin, ICustomerFilter, IResturantUpdate, IResturantUpdateByAdmin } from "../interface/interfaces";
 import { ResturantRepository } from "../repositories/resturant.repos";
 import { genericAndNull, IResturantFilterType, IuserData, roleType } from "../types/types";
 import { purifyResturantFilter } from "../utils/filterPurifier.utils";
@@ -20,20 +20,20 @@ export class ResturantService {
         const {id, role} = userData
         if(this.roleHelper.isAdmin(role)){
             // what will the admin see
-            const purifiedFilter : IResturantFilterType = purifyResturantFilter(filter, role)
-            const resturants = await this.resturantRepo.findResturant(role as Exclude<roleType, Role.RESTURANT>, {...purifiedFilter})
+            const purifiedFilter : IAdmin = purifyResturantFilter(filter as  Record<string, unknown>, role as Exclude<roleType, Role.RESTURANT | Role.DELIVERY>)
+            const resturants = await this.resturantRepo.findResturants(role as Exclude<roleType, Role.RESTURANT | Role.DELIVERY>, {...purifiedFilter})
             return resturants
         }
         else if(this.roleHelper.isCustomer(role)){
-            const purifiedFilter : IResturantFilterType = purifyResturantFilter(filter, role)
-            const resturants = await this.resturantRepo.findResturants(role as Exclude<Role, Role.RESTURANT>, {...purifiedFilter, approval_status : RESTURANT_IS_APPROVED.RESTURANT_APPROVED})
+            const purifiedFilter : IResturantFilterType = purifyResturantFilter(filter as  Record<string, unknown>, role as Exclude<roleType, Role.RESTURANT | Role.DELIVERY>)
+            const resturants = await this.resturantRepo.findResturants(role as Exclude<Role, Role.RESTURANT | Role.DELIVERY>, {...purifiedFilter, approval_status : RESTURANT_IS_APPROVED.RESTURANT_APPROVED})
             return resturants
         }
     }
 
     public getResturant = async(userData : IuserData, resturantId : string) => {
         const {id, username, role} = userData
-        const resturant = await this.resturantRepo.findResturantDetailed("resturant_id", +resturantId, role)
+        const resturant = await this.resturantRepo.findResturantDetailed("resturant_id", +resturantId, role as Exclude<Role, Role.DELIVERY>)
         if(!resturant){
             throw new APIError("resturant not found", HTTP_STATUS.CLIENT_ERROR.NOT_FOUND.CODE)
         }
@@ -44,6 +44,9 @@ export class ResturantService {
         const {id} = userData
         console.log(id)
         const resturant = await this.resturantRepo.findResturant("resturant_id", +id)
+        if(!resturant){
+            throw new APIError("no resturant found", 404)
+        }
         if(Object.keys(resturantData).length == 0){
             throw new APIError("no data sent", HTTP_STATUS.CLIENT_ERROR.BAD_REQUEST.CODE)
         }

@@ -5,7 +5,7 @@ import { IAddress } from "../interface/interfaces";
 import { APIError } from "../exception/exception";
 import { HTTP_STATUS } from "../constants/http-status.constants";
 
-export const addAddress = async (address : IAddress): Promise<number> => {
+export const addAddress = async (address : IAddress) => {
     try{
         const addressRepo = AppDataSource.getRepository(Address)
         const data =  addressRepo.create(address)

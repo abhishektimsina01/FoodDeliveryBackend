@@ -16,16 +16,20 @@ import { User } from "./user.entity"
 export class DeliveryPerson{
 
     @PrimaryGeneratedColumn({type : "int"})
-    delivery_person_id : number
+    delivery_person_id !: number
 
     @Column({type : "bigint"})
-    name : string
+    name !: string
 
     @OneToOne(() => User)
     @JoinColumn()
-    user : User
+    user !: User
+
+    @OneToOne(() => Address)
+    @JoinColumn()
+    address !: Address
 
     @OneToMany(() => Delivery, (delivery) => delivery.delivery_person)
-    delivery : Delivery[]
+    delivery !: Delivery[]
 
 }

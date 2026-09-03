@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "build": "tsc --build",
     "local": "node dist/server.js",
@@ -27,6 +27,7 @@
     "mysql2": "^3.23.3",
     "nodemailer": "^9.0.5",
     "nodemon": "^3.1.14",
+    "pg": "^8.23.0",
     "socket.io": "^4.8.3",
     "stripe": "^22.6.0",
     "typeorm": "^1.1.0"
@@ -37,6 +38,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^26.2.0",
     "@types/nodemailer": "^8.0.1",
     "ts-node": "^10.9.2",

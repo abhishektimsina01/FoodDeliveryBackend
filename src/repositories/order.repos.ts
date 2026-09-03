@@ -4,7 +4,7 @@ import { OrderItem } from "../database/Entity/ManyToMany/order_item.entity";
 import { Menu } from "../database/Entity/menu.entity";
 import { AppDataSource } from "../database/connect";
 import { IOrderData, ITransaction } from "../interface/interfaces";
-import { DatabaseException } from "../exception/exception";
+import { APIError, DatabaseException } from "../exception/exception";
 import { Transaction } from "../database/Entity/transaction.entity";
 import { RESTURANT_ORDER_STATUS } from "../enums/enums";
 import { IuserData } from "../types/types";
@@ -144,7 +144,9 @@ export class OrderRepo {
                 session_id : session_id
              }
         })
-
+        if(!order){
+            throw new APIError("order not found", 404)
+        }
         const transaction = this.transactionRepo.create({
             payment_id : payment_id,
             customer : order.customer,

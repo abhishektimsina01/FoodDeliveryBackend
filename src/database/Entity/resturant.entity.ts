@@ -23,47 +23,51 @@ import { User } from "./user.entity"
 export class Resturant{
 
     @PrimaryGeneratedColumn({type : "int"})
-    resturant_id : number
+    resturant_id !: number
 
     @Column({type : "varchar"})
-    resturant_name : string
+    resturant_name !: string
 
     @Column({type : "varchar"})
-    owner_name : string
+    owner_name !: string
 
     @Column({type : "varchar"})
-    email : string
+    email !: string
 
     @Column({type : "enum", enum : RESTURANT_IS_APPROVED, default : RESTURANT_IS_APPROVED.RESTURANT_PENDING})
-    approval_status : RESTURANT_IS_APPROVED
+    approval_status !: RESTURANT_IS_APPROVED
 
     @Column({type : "varchar"})
-    password : string
+    password !: string
 
     @Column({ type : "enum", enum : [RESTURANT_STATUS.RESTURANT_OPEN, RESTURANT_STATUS.RESTURANT_CLOSE], default : RESTURANT_STATUS.RESTURANT_CLOSE})
-    status : RESTURANT_STATUS
+    status !: RESTURANT_STATUS
 
     @ManyToOne(()=> Admin, (admin) => admin.resturants, {onDelete : "SET NULL", nullable : true})
     @JoinColumn()
-    approved_by : Admin | null
+    approved_by !: Admin | null
 
     @OneToMany( ()=> Menu, (menu)=> menu.resturant)
-    items : Menu[]
+    items !: Menu[]
 
     @OneToMany( () => Order, (order) => order.resturant)
-    orders : Order[]
+    orders !: Order[]
 
     @OneToMany(() => Transaction, (trans) => trans.resturant)
-    transaction : Transaction[]
+    transaction !: Transaction[]
 
     @OneToOne(() => User)
     @JoinColumn()
-    user : User
+    user !: User
+
+    @OneToOne(() => Address)
+    @JoinColumn()
+    address !: Address
 
     @CreateDateColumn()
-    created_at : Date
+    created_at !: Date
 
     @UpdateDateColumn()
-    updated_at : Date
+    updated_at !: Date
 
 }

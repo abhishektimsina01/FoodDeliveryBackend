@@ -5,7 +5,7 @@ on :
     branches : ["master"]
 
 jobs :
-  
+
   test :
     # machine for running the code
     runs-on : ubuntu-latest
@@ -13,14 +13,20 @@ jobs :
         # brings the code from the repo to the machine
       - uses : actions/checkout@v4
       - run : npm install
-      - run : npm run build
 
   build : 
     # after test job is done
     needs : test
     # build the docker image
     runs-on : ubuntu-latest
-    steps : 
+    steps :
       - uses : actions/checkout@v4
+
+      - name : Login in the docker hub for publishing the docker image
+      - uses : docker/login-activity@v3
+        with : 
+          username : ${{secret.DOCKERHUB_USERNAME}}
+          password : ${{secret.DOCKERHUB_TOKEN}}
+
       - run : docker build -t FoodDelivery .
-      `
+      - run : docker push FoodDelivery

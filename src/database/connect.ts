@@ -12,6 +12,7 @@ import { Menu } from "./Entity/menu.entity.js"
 import { Transaction } from "./Entity/transaction.entity.js"
 import { Address } from "./Entity/address.entity.js"
 import { OrderItem } from "./Entity/ManyToMany/order_item.entity.js"
+import { User } from "./Entity/user.entity.js"
 
 
 export const AppDataSource = new DataSource({
@@ -23,6 +24,7 @@ export const AppDataSource = new DataSource({
     port : 3306,
     entities : [
         Address, 
+        User,
         Admin,
         Customer, 
         Resturant, 
@@ -47,7 +49,7 @@ export const connectToDatabase = async() => {
         }
         catch(err){
             console.log(`${count} failed to connect.`)
-            // console.log(err)
+            console.log(err)
             status = false
             count++
         }

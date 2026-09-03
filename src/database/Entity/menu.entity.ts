@@ -14,19 +14,19 @@ import { OrderItem } from "./ManyToMany/order_item.entity"
 export class Menu { 
 
     @PrimaryGeneratedColumn({type : "int"})
-    item_id : number
+    item_id !: number
 
     @Column({type : "varchar"})
-    item_name : string
+    item_name !: string
 
     @Column({type : "enum", enum : ITEM_TYPE, default : ITEM_TYPE.FAST_FOOD})
-    item_type : ITEM_TYPE
+    item_type !: ITEM_TYPE
 
     @Column({type : "bigint", scale : 2})
-    price : number
+    price !: number
 
     @ManyToOne(()=> Resturant, (resturant) => resturant.items, {onDelete : "CASCADE"})
     @JoinColumn()
-    resturant : Resturant
+    resturant !: Resturant
 
 }

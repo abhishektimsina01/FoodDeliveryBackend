@@ -18,24 +18,24 @@ import { Resturant } from "./resturant.entity"
 export class Transaction {
 
     @PrimaryGeneratedColumn({type : "int"})
-    transanction_id : number
+    transanction_id !: number
 
     @Column({type : "varchar"})
-    payment_id : string
+    payment_id !: string
 
     @OneToOne(() => Order, (order) => order.transaction)
-    order: Order
+    order!: Order
 
     @ManyToOne(() => Customer, (customer) => customer.transaction)
     @JoinColumn()
-    customer : Customer
+    customer !: Customer
 
     @ManyToOne(() => Resturant, (resturant) => resturant.transaction)
     @JoinColumn()
-    resturant : Resturant
+    resturant !: Resturant
 
     @Column({type : "int", nullable : true})
-    payment : number | null
+    payment !: number | null
 
     // left till the endpoints for this are made.
 }

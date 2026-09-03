@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.menuRouter = void 0;
+const express_1 = require("express");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const menu_controller_1 = require("../controller/menu.controller");
+exports.menuRouter = (0, express_1.Router)();
+exports.menuRouter.get("/menu", auth_middleware_1.authenticationMiddleware, menu_controller_1.getItems);
+exports.menuRouter.post("/item", auth_middleware_1.authenticationMiddleware, menu_controller_1.createItem);
+exports.menuRouter.get("/item/:id", auth_middleware_1.authenticationMiddleware, menu_controller_1.getItem);

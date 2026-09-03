@@ -5,24 +5,24 @@ import { Address } from "./address.entity";
 export class User {
 
     @PrimaryGeneratedColumn({type : "int"})
-    user_id : number
+    user_id !: number
 
     @Column({type : "varchar"})
-    username : string
+    username !: string
 
     @Column({ type : "varchar"})
-    password : string
+    password !: string
 
     @CreateDateColumn()
-    created_at : Date
+    created_at !: Date
 
     @UpdateDateColumn()
-    updated_at : Date
+    updated_at !: Date
 
     @DeleteDateColumn({ nullable : true})
-    deleted_at : Date | null
+    deleted_at !: Date | null
 
     @OneToOne(() => Address)
     @JoinColumn()
-    address : Address
+    address !: Address
 }

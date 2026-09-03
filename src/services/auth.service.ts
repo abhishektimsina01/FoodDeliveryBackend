@@ -28,7 +28,7 @@ export class AuthService {
                     content : "please logIn!!"
                 })
             }
-            const new_adddress_id : number = await addAddress(address)
+            const new_adddress_id = await addAddress(address)
             const newUserData = { 
                 ...userInfo,
                 address : new_adddress_id

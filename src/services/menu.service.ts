@@ -2,6 +2,7 @@ import { it } from "node:test";
 import { MenuRepository } from "../repositories/menu.repos";
 import { IuserData } from "../types/types";
 import { IMenuData } from "../interface/interfaces";
+import { APIError } from "../exception/exception";
 
 export class MenuService {
     menuRepo : MenuRepository
@@ -13,7 +14,10 @@ export class MenuService {
         const {id} = menuData
         console.log(id)
         const data  = await this.menuRepo.getMenu(id)
-        const {items, resturant_id} = data
+        if(!data){
+            throw new APIError("menu not found", 404)
+        }
+        const {items} = data
         return items
     }
 
