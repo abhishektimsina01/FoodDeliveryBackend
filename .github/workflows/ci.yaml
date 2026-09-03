@@ -27,6 +27,6 @@ jobs :
         with : 
           username : ${{secret.DOCKERHUB_USERNAME}}
           password : ${{secret.DOCKERHUB_TOKEN}}
-
+      -run : docker pull node:22
       - run : docker build -t FoodDelivery .
       - run : docker push FoodDelivery

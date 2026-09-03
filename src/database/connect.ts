@@ -12,19 +12,17 @@ import { Menu } from "./Entity/menu.entity.js"
 import { Transaction } from "./Entity/transaction.entity.js"
 import { Address } from "./Entity/address.entity.js"
 import { OrderItem } from "./Entity/ManyToMany/order_item.entity.js"
-import { User } from "./Entity/user.entity.js"
 
 
 export const AppDataSource = new DataSource({
     type : "mysql",
-    host : "localhost",
+    host : "host.docker.internal",
     username : getEnvProperty("db_username"),
     password : getEnvProperty("db_password"),
     database : "FoodDelivery",
     port : 3306,
     entities : [
         Address, 
-        User,
         Admin,
         Customer, 
         Resturant, 

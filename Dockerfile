@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 8010
 
 # start server
-CMD [ "node", "./dist/server.js"]
+CMD [ "npm", "run", "local"]
