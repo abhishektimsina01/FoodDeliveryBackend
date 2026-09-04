@@ -12,3 +12,5 @@ export const connectRedis = async () => {
     await redisClient.connect()
     console.log("redis connected")
 }
+
+export {redisClient}
